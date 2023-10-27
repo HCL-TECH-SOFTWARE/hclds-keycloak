@@ -1,0 +1,26 @@
+# Terminology and abbreviations
+
+You will encounter abbreviations and identity provider (IdP) concepts throughout the documentation. The following list provides definitions and expands abbreviations.
+
+| Name               | Description                                                                           |
+| ------------------ | ------------------------------------------------------------------------------------- |
+| MFA | Multi-Factor Authentication - a security method that requires users to provide two or more different forms of verification (such as a password, fingerprint, or text message code) before gaining access to a system or application, enhancing protection against unauthorized access. |
+| FQDN | Fully qualified domain name is a complete and specific domain name that uniquely identifies a location on the internet. It includes the host name and all the domains above it, separated by dots. For example, "www.example.com" is an FQDN where "www" is the host name and "example.com" is the domain. |
+| HCL CNX or CNX     | [HCL Connections](https://www.hcl-software.com/connections) |
+| HCL DS or DS       | HCL Digital Solutions, part of [HCL Software](https://www.hcl-software.com/) |
+| HCL DX or DX       | [HCL Digital Experience](https://www.hcl-software.com/dx) |
+| IAM | Identity and Access Management is  a framework that governs and controls user identities, users’ access to resources, and permissions within an organization's systems. It ensures security and compliance by managing user authentication, authorization, and permissions in various applications and services. |
+| IdP | Identity provider is a system that authenticates and manages user identities, enabling secure access to various applications and services through a single set of credentials. |
+| IHS | IBM HTTP Server is a web server based on the Apache HTTP Server project and developed by IBM. It provides a powerful and secure web server platform. You can use the platform to serve static and dynamic content, host web applications, and as a front-end server for applications, including those running on IBM WebSphere Application Server. |
+| ISC | Integrated Solutions Console is the graphical user interface WebSphere Application Server provids for managing and configuring the server and its applications. Use it to manage various aspects of the server, including administration, monitoring, and configuration. |
+| JVM | Java Virtual Machine is a runtime environment that runs Java bytecode. It enables Java applications to run consistently on different platforms by providing memory management, cleanup, and other essential services. WAS uses JVMs to run applications that are installed on it. |
+| JWT Tokens | JSON Web Token is a compact, self-contained data format that securely transmits information between parties as a JSON object. It's commonly used for authentication, authorization, and data exchange in web applications. |
+| Liberty | Open Liberty is an open-source, lightweight, and flexible application server designed for building and deploying Java EE (now Jakarta EE) and MicroProfile applications. IBM developed it and offers a fast and adaptable runtime environment for cloud-native and traditional Java applications. |
+| OIDC | OpenID Connect is an authentication protocol that enhances OAuth 2.0 by providing identity information, allowing users to log in to multiple applications by using a single set of credentials from an IdP. |
+| PVC | Persistent Volume Claim is a Kubernetes resource that enables a pod to request storage with specific characteristics, such as storage capacity and access mode. It provides persistent storage to containers in a dynamic and scalable manner within Kubernetes clusters. |
+| RP | Relying party is a service or application that relies on an IdP authentication to grant users access, often using protocols like OAuth 2.0 or OIDC. |
+| SSO | Single Sign-On is a user authentication method that permits users to access multiple applications or services by using a single set of credentials. It enhances user convenience and security by centralizing authentication through an identity provider. |
+| SP | Service provider is a system that offers services or resources to users, often relying on an IdP for user authentication and authorization, as seen in Single Sign-On (SSO) setups. |
+| TAI | Trust Association Interceptor is a component used in WAS to integrate third-party authentication mechanisms into the server's authentication process. It supports custom authentication providers to be plugged into the server, enabling a wide range of authentication methods beyond built-in options. |
+| VMM | Virtual Member Manager is a component of IBM WebSphere Application Server that provides user authentication and authorization services. It supports the integration of various user repositories and identity sources, enabling centralized management of user identities and access control across different applications and services. |
+| WAS | WebSphere Application Server is a software framework IBM developed for hosting Java-based web applications and services. It provides a runtime environment, management tools, and various features to deploy, manage, and scale applications in enterprise environments. |
