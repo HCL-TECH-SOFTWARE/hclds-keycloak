@@ -23,7 +23,7 @@ There are three notable ways for applying / providing the parameters to your hel
 
 ### Via a custom `values.yaml` file
 
-You can overwrite individual properties from the [values.yaml](../../../../../deployment/helm/hclds-keycloak/values.yaml) file that's used by default. To do so, you can create a `custom-values.yaml` file with your desired configuration properties:
+You can overwrite individual properties from the [values.yaml](../../../deployment/helm/hclds-keycloak/values.yaml) file that's used by default. To do so, you can create a `custom-values.yaml` file with your desired configuration properties:
 
 ```sh
 vi custom-values.yaml
