@@ -38,7 +38,7 @@ Although these tasks will generally work, we are using references for how a conf
 - An IdP is set up and configured. Required details like the client id or secrets are available to configure during the below tasks.
 - A Keycloak service (specifically, the HCL DS branded Keycloak version) is being used as the IdP (The OIDC layer will look mostly the same with any other IdP but can't be guaranteed due to the extensive landscape of providers)
 
-- **Note** - As an additional note to the above point on the used HCL DS branded Keycloak service, there are a couple of steps that have to be conducted to set up the OIDC layer on the IdP side. This includes e.g. the setup of a realm, client, user federation and custom claims. The document [Configure Keycloak as an OIDC IdP for HCL Connections](./cnx-keycloak-configuration) provides details steps on setting up all necessary parts. If you are using a different IdP, this might still be relevant to confirm you are setting the OIDC layer up in a way that will work with DX.
+- **Note** - As an additional note to the above point on the used HCL DS branded Keycloak service, there are a couple of steps that have to be conducted to set up the OIDC layer on the IdP side. This includes e.g. the setup of a realm, client, user federation and custom claims. The document [Configure Keycloak as an OIDC IdP for HCL Connections](./cnx-keycloak-configuration.md) provides details steps on setting up all necessary parts. If you are using a different IdP, this might still be relevant to confirm you are setting the OIDC layer up in a way that will work with DX.
 
 
 ## Installing the OIDCRP TAI
@@ -120,7 +120,7 @@ Persist the changes via the **Save** link.
 
 In order to allow internal HTTPS communication with Keycloak, we need to add the hostname (FQDN) to the WebSphere trust store.
 
-In the ISC, navigate to **Security** -> **SSL certificate and key management** -> **Key stores and certificates** -> **NodeDefaultTrustStore** -> **Signer Certificates** -> **Retrieve from port**
+In the ISC, navigate to **Security** -> **SSL certificate and key management** -> **Key stores and certificates** -> **CellDefaultTrustStore** -> **Signer Certificates** -> **Retrieve from port**
 
 Set the following properties:
 
@@ -156,8 +156,9 @@ In the ISC, navigate to **Security** -> **federated repositories** –> **config
 
 ## Updating httpd.conf file for redirection rules
 
-```sh
 Path - /opt/IBM/HTTPServer/conf/httpd.conf
+
+```sh
 Header edit Set-Cookie ^(.*)$ "$1; SameSite=None;Secure"
 Redirect "/realms/hcl/.well-known/openid-configuration" "https://<IDP_HOSTNAME>/auth/realms/hcl/.well-known/openid-configuration"
 
@@ -177,7 +178,7 @@ Make sure to save the changes.
 ### Restarting the IHS server
 
 ```sh
-/opt/IBM/HTTPServer/bin/
+cd /opt/IBM/HTTPServer/bin/
 sudo systemctl stop ihs
 sudo systemctl start ihs
 ```
