@@ -82,7 +82,7 @@ Add the following custom properties:
 | provider_1.signatureAlgorithm         | RS256                                                                                   |
 | provider_1.jwkEndpointUrl             | https://&lt;IDP_HOSTNAME&gt;/auth/realms/hcl/protocol/openid-connect/certs              |
 | provider_1.userIdentifier             | email                                                                                   |
-| provider_1.userDefaultIdentifierFirst | false                                                                                   |
+| provider_1.useDefaultIdentifierFirst | false                                                                                   |
 | provider_1.scope                      | openid                                                                                  |
 | provider_1.signVerifyAlias            | hcl-idp-cert                                                                            |
 | provider_1.useJwtFromRequest          | IfPresent                                                                               |
