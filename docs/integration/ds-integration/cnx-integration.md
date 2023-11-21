@@ -225,6 +225,29 @@ Path - /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/config/cells/bvt1Node01Cel
     ```sh
     <connections-ee-settings preloadJS="false" preloadJSSafari="true" useSSO="true">
     ```
+## Updating mobile-config
+
+For mobile use we need to update the security settings in the `mobile-config.xml`
+
+Path - /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/config/cells/bvt1Node01Cell/LotusConnections-config/mobile-config.xml
+
+```sh
+    <SecuritySettings enabled="true">
+
+       <AuthType>OAuth</AuthType> 
+
+       <OAuthAuthorizationURL>https://<IDP_HOSTNMAE>/realms/<IDP_REALM>/protocol/openid-connect/auth</OAuthAuthorizationURL> 
+
+       <OAuthTokenURL>https://<IDP_HOSTNMAE>/realms/<IDP_REALM>/protocol/openid-connect/token</OAuthTokenURL> 
+
+       <OAuthClientId>connections_social_mobile</OAuthClientId> 
+
+       :
+       :
+    </SecuritySettings>
+    
+```	
+
 ### Restarting WAS
 
     ```sh
