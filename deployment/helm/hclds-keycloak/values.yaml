@@ -1105,6 +1105,8 @@ ssoConfiguration:
   enabled: true
   ## Realm name.
   realmName: "hcl"
+  ## Login theme for the realm
+  loginTheme: "hcl"
   ## Clients for the realm
   clients:
   - name: "HCL Connections"

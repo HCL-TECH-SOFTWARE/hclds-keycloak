@@ -297,7 +297,7 @@ spec:
         {{- end }}
         - name: {{ printf "%s-realm-configuration" .Values.ssoConfiguration.realmName }}
           configMap:
-            name: {{ printf "%s-realm-configuration" (include "common.names.fullname" .) }}
+            name: {{ printf "%s-realm-configuration" .Values.ssoConfiguration.realmName }}
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}
