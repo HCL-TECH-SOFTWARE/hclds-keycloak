@@ -1,0 +1,297 @@
+{{- /*
+Copyright 2023 HCL Technologies
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+*/}}
+{{- if .Values.ssoConfiguration.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-%s-realm-configuration" (include "common.names.fullname" .) .Values.ssoConfiguration.realmName }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: {{ include "common.names.fullname" . }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+data:
+  {{ printf "%s-realm-config.json" .Values.ssoConfiguration.realmName }}: >-
+    {
+      "realm": {{ .Values.ssoConfiguration.realmName | quote }},
+      "enabled": true,
+      "accessTokenLifespan": 1800,
+      "accessTokenLifespanForImplicitFlow": 900,
+      "ssoSessionMaxLifespan": 36000,
+      "ssoSessionIdleTimeout": 1800,
+      "accessCodeLifespan": 60,
+      "accessCodeLifespanUserAction": 300,
+      "accessCodeLifespanLogin": 1800,
+      "loginTheme": "hcl",
+      "clients": {{ .Values.ssoConfiguration.clients | toJson }},
+      "components": {
+        {{- if and .Values.ssoConfiguration.userFederation.enabled .Values.ssoConfiguration.userFederation.name }}
+        "org.keycloak.storage.UserStorageProvider": [
+          {
+            "name": {{ .Values.ssoConfiguration.userFederation.name | quote }},
+            "providerId": {{ .Values.ssoConfiguration.userFederation.name | quote }},
+            "subComponents": {
+              "org.keycloak.storage.ldap.mappers.LDAPStorageMapper": [
+                {
+                  "name": "MSAD account controls",
+                  "providerId": "msad-user-account-control-mapper",
+                  "subComponents": {
+                    
+                  },
+                  "config": {
+                    
+                  }
+                },
+                {
+                  "name": "first name",
+                  "providerId": "user-attribute-ldap-mapper",
+                  "subComponents": {
+                    
+                  },
+                  "config": {
+                    "ldap.attribute": [
+                      "cn"
+                    ],
+                    "is.mandatory.in.ldap": [
+                      "true"
+                    ],
+                    "read.only": [
+                      "true"
+                    ],
+                    "always.read.value.from.ldap": [
+                      "true"
+                    ],
+                    "user.model.attribute": [
+                      "firstName"
+                    ]
+                  }
+                },
+                {
+                  "name": "last name",
+                  "providerId": "user-attribute-ldap-mapper",
+                  "subComponents": {
+                    
+                  },
+                  "config": {
+                    "ldap.attribute": [
+                      "sn"
+                    ],
+                    "is.mandatory.in.ldap": [
+                      "true"
+                    ],
+                    "read.only": [
+                      "true"
+                    ],
+                    "always.read.value.from.ldap": [
+                      "true"
+                    ],
+                    "user.model.attribute": [
+                      "lastName"
+                    ]
+                  }
+                },
+                {
+                  "name": "username",
+                  "providerId": "user-attribute-ldap-mapper",
+                  "subComponents": {
+                    
+                  },
+                  "config": {
+                    "ldap.attribute": [
+                      "uid"
+                    ],
+                    "is.mandatory.in.ldap": [
+                      "true"
+                    ],
+                    "read.only": [
+                      "true"
+                    ],
+                    "always.read.value.from.ldap": [
+                      "false"
+                    ],
+                    "user.model.attribute": [
+                      "username"
+                    ]
+                  }
+                },
+                {
+                  "name": "email",
+                  "providerId": "user-attribute-ldap-mapper",
+                  "subComponents": {
+                    
+                  },
+                  "config": {
+                    "ldap.attribute": [
+                      "mail"
+                    ],
+                    "is.mandatory.in.ldap": [
+                      "false"
+                    ],
+                    "read.only": [
+                      "true"
+                    ],
+                    "always.read.value.from.ldap": [
+                      "false"
+                    ],
+                    "user.model.attribute": [
+                      "email"
+                    ]
+                  }
+                },
+                {
+                  "name": "modify date",
+                  "providerId": "user-attribute-ldap-mapper",
+                  "subComponents": {
+                    
+                  },
+                  "config": {
+                    "ldap.attribute": [
+                      "whenChanged"
+                    ],
+                    "is.mandatory.in.ldap": [
+                      "false"
+                    ],
+                    "read.only": [
+                      "true"
+                    ],
+                    "always.read.value.from.ldap": [
+                      "true"
+                    ],
+                    "user.model.attribute": [
+                      "modifyTimestamp"
+                    ]
+                  }
+                },
+                {
+                  "name": "creation date",
+                  "providerId": "user-attribute-ldap-mapper",
+                  "subComponents": {
+                    
+                  },
+                  "config": {
+                    "ldap.attribute": [
+                      "whenCreated"
+                    ],
+                    "is.mandatory.in.ldap": [
+                      "false"
+                    ],
+                    "always.read.value.from.ldap": [
+                      "true"
+                    ],
+                    "read.only": [
+                      "true"
+                    ],
+                    "user.model.attribute": [
+                      "createTimestamp"
+                    ]
+                  }
+                }
+              ]
+            },
+            "config": {
+              "fullSyncPeriod": [
+                "-1"
+              ],
+              "pagination": [
+                "false"
+              ],
+              "startTls": [
+                "false"
+              ],
+              "usersDn": [
+                {{ .Values.ssoConfiguration.userFederation.usersDn | quote }}
+              ],
+              "connectionPooling": [
+                "false"
+              ],
+              "cachePolicy": [
+                "DEFAULT"
+              ],
+              "useKerberosForPasswordAuthentication": [
+                "false"
+              ],
+              "importEnabled": [
+                "true"
+              ],
+              "enabled": [
+                "true"
+              ],
+              "changedSyncPeriod": [
+                "-1"
+              ],
+              "bindCredential": [
+                {{ .Values.ssoConfiguration.userFederation.bindCredential | quote }}
+              ],
+              "usernameLDAPAttribute": [
+                {{ .Values.ssoConfiguration.userFederation.usernameLDAPAttribute | quote }}
+              ],
+              "bindDn": [
+                {{ .Values.ssoConfiguration.userFederation.bindDn | quote }}
+              ],
+              "vendor": [
+                "other"
+              ],
+              "uuidLDAPAttribute": [
+                {{ .Values.ssoConfiguration.userFederation.uuidLDAPAttribute | quote }}
+              ],
+              "allowKerberosAuthentication": [
+                "false"
+              ],
+              "connectionUrl": [
+                {{ .Values.ssoConfiguration.userFederation.connectionUrl | quote }}
+              ],
+              "syncRegistrations": [
+                "true"
+              ],
+              "authType": [
+                {{ .Values.ssoConfiguration.userFederation.authType | quote }}
+              ],
+              "searchScope": [
+                "2"
+              ],
+              "useTruststoreSpi": [
+                "ldapsOnly"
+              ],
+              "usePasswordModifyExtendedOp": [
+                "false"
+              ],
+              "trustEmail": [
+                "false"
+              ],
+              "userObjectClasses": [
+                {{ .Values.ssoConfiguration.userFederation.userObjectClasses | quote }}
+              ],
+              "rdnLDAPAttribute": [
+                "uid"
+              ],
+              "editMode": [
+                "READ_ONLY"
+              ],
+              "validatePasswordPolicy": [
+                "false"
+              ]
+            }
+          }
+        ]
+        {{- end }}
+      }
+    }
+{{- end }}

@@ -1,0 +1,6 @@
+.DS_Store
+.stage_docker
+dx.jaas.sample/target
+dx.jaas.sample/.settings
+dx.jaas.sample/.classpath
+dx.jaas.sample/.project

@@ -17,10 +17,10 @@
         ${msg("logoutConfirmTitle")}
     <#elseif section = "form">
         <div id="kc-logout-confirm" class="content-area">
-            <div <#if locale??><#if locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif  locale.currentLanguageTag = 'he'> style="text-align: right;"</#if></#if>>${msg("logoutWarning")} 
+            <div <#if locale??><#if locale?? && locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="text-align: right;"</#if></#if>>${msg("logoutWarning")}
                 <span style="text-transform: uppercase;">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
             </div>
-            <div <#if locale??><#if locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif  locale.currentLanguageTag = 'he'> style="text-align: right;"</#if></#if>>${msg("logoutWarning1")}</div>
+            <div <#if locale??><#if locale?? && locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="text-align: right;"</#if></#if>>${msg("logoutWarning1")}</div>
             <p class="instruction">${msg("logoutConfirmHeader")}</p>
 
             <form class="form-actions" action="${url.logoutConfirmAction}" method="POST">

@@ -31,9 +31,9 @@
                 <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
                     <#if !usernameHidden??>
                         <div class="column-flex-box login-field-group">
-                            <label for="username" class="field-label" <#if locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif  locale.currentLanguageTag = 'he'> style="text-align: right;"</#if>><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
+                            <label for="username" class="field-label" <#if locale?? && locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="text-align: right;"</#if>><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
                             <input tabindex="1" id="username" class="field-input" name="username" value="${(login.username!'')}"  type="text" autofocus autocomplete="off" aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                                <#if locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif  locale.currentLanguageTag = 'he'> style="text-align: right;"</#if>/>
+                                <#if locale?? && locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="text-align: right;"</#if>/>
                         </div>        
                     </#if>
                     <div class="column-flex-box login-field-group">
@@ -47,7 +47,7 @@
                         <div class="row-flex-box login-label-group-space-between">
                             <input tabindex="1" id="password" class="field-input" name="password" type="password" autocomplete="off"
                                 aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                                <#if locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif  locale.currentLanguageTag = 'he'> style="text-align: right;"</#if>/>
+                                <#if locale?? && locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="text-align: right;"</#if>/>
                         </div>
                         <#if realm.rememberMe && !usernameHidden??>
                             <div class="row-flex-box field-checkbox-group">
@@ -99,8 +99,6 @@
             </div>
         </#if>
     </div>
-    </div>
-    <div class="row-flex-box rhs-container">
     </div>
 </div>
 </#if>

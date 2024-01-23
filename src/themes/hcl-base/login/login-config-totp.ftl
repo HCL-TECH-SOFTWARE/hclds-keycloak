@@ -52,10 +52,10 @@
         <form action="${url.loginAction}" class="${properties.kcFormClass!}" id="kc-totp-settings-form" method="post">
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcInputWrapperClass!}">
-                    <#if locale.currentLanguageTag = 'ar'>
+                    <#if locale?? && locale.currentLanguageTag = 'ar'>
                     <span class="required" style="float: right;">*</span>
                     <label for="totp" class="control-label" style="float: right;">${msg("authenticatorCode")}</label>
-                    <#elseif  locale.currentLanguageTag = 'he'>
+                    <#elseif locale?? && locale.currentLanguageTag = 'he'>
                     <span class="required" style="float: right;">*</span>
                     <label for="totp" class="control-label" style="float: right;">${msg("authenticatorCode")}</label>
                     <#else>
@@ -70,7 +70,7 @@
 
                     <#if messagesPerField.existsError('totp')>
                         <span id="input-error-otp-code" class="${properties.kcInputErrorMessageClass!}" aria-live="polite"
-                        <#if locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif  locale.currentLanguageTag = 'he'> style="float: right;"</#if>>
+                        <#if locale?? && locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="float: right;"</#if>>
                             ${kcSanitize(messagesPerField.get('totp'))?no_esc}
                         </span>
                     </#if>
@@ -82,7 +82,7 @@
 
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcInputWrapperClass!}">
-                    <label for="userLabel" class="control-label" <#if locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif  locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("loginTotpDeviceName")}</label> <#if totp.otpCredentials?size gte 1><span class="required">*</span></#if>
+                    <label for="userLabel" class="control-label" <#if locale?? && locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("loginTotpDeviceName")}</label> <#if totp.otpCredentials?size gte 1><span class="required">*</span></#if>
                 </div>
 
                 <div class="${properties.kcInputWrapperClass!}">

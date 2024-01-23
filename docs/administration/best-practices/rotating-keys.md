@@ -40,8 +40,9 @@ To add a keypair and certificate stored in a Java Keystore file on the host sele
 
 Fill in the values for `Keystore`, `Keystore Password`, `Key Alias` and `Key Password` and click on `Save`.
 
-!!!todo
-    Need to detail out steps how JKS file can be generated. We might also need to make this key available on the running Keycloak pod so that we can provide a path to the `Keystore` file.
+> **_Todo:_**
+>
+> Need to detail out steps how JKS file can be generated. We might also need to make this key available on the running Keycloak pod so that we can provide a path to the `Keystore` file.
 
 ## Making keys passive
 

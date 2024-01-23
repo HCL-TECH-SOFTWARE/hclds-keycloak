@@ -6,10 +6,9 @@ All instructions are written in a way to work with the HCL DS Keycloak service, 
 
 ## HCL Connections
 
-- [Configure Keycloak as an OIDC IdP for HCL Connections](./cnx-keycloak-configuration.md)
-- [Setting up OIDC for HCL Connections](./cnx-integration.md)
+- [Configure Keycloak as an OIDC IdP for HCL Connections](./cnx/cnx-keycloak-configuration.md)
+- [Setting up OIDC for HCL Connections](./cnx/cnx-integration.md)
 
 ## HCL Digital Experience
 
-- [Configure Keycloak as an OIDC IdP for HCL Digital Experience](./dx-keycloak-configuration.md)
-- [Setting up OIDC for HCL Digital Experience](./dx-integration.md)
+- [Configuring OIDC for HCL Digital Experience](./dx/readme.md)

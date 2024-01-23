@@ -1,6 +1,6 @@
 # Deploy the HCL Digital Solutions Keycloak service through Docker Compose
 
-Deploying the service through Docker Compose is arguably the easiest way to get up and running, as the alternative through ([Helm charts](./helm/) bases on the same service, containerized through Docker as well.
+Deploying the service through Docker Compose is arguably the easiest way to get up and running, as the alternative through [Helm charts](./helm/) bases on the same service, containerized through Docker as well.
 
 ## Overview
 
