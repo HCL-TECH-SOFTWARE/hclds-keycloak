@@ -46,7 +46,7 @@ Create a new directory in the `themes` directory and create a new theme. The nam
 
 Inside the `theme` directory create a subdirectory for each of the theme types provided. For example to add the login type to the `hcl-base` theme create the directory `themes/hcl-base/login`.
 
-Create a configration file `theme.properties` and paste following content:
+Create a configration file `theme.properties` and add following content:
 
 ```properties
 parent=keycloak
