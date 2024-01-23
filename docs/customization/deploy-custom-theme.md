@@ -1,6 +1,6 @@
 # Deploying custom theme
 
-Themes can be deployed into Keycloak by copying the theme directory to `themes` or it can be deployed as an `archive`. During development you can copy the theme to the `themes` directory, but in production you may want to consider using an `archive`. You can refer to [Custom themes](./custom-themes.md) for more information on how to create a custom theme.
+Themes are deployed into Keycloak by copying the theme directory to `themes` or it can be deployed as a `archive`. During development, copy the theme to the `themes` directory, but in production consider using a `archive`. For more information on how to create a custom theme, see [Custom themes](./custom-themes.md).
 
 Please ensure you clone [hclds-keycloak](https://git.cwp.pnp-hcl.com/hclds/hclds-keycloak) repo to your local machine before you begin.
 
@@ -9,7 +9,7 @@ Please ensure you clone [hclds-keycloak](https://git.cwp.pnp-hcl.com/hclds/hclds
 You can deploy your theme locally using `Docker Compose` for development purpose.
 
 
-Create a docker compose file `docker-compose.yaml` in the root directory of the cloned repo and paste below content:
+Create a docker compose file `docker-compose.yaml` in the root directory of the cloned repo and paste the following content:
 
 ```yaml
 version: '3'
@@ -42,7 +42,7 @@ services:
     network_mode: bridge
 ```
 
-Run the below command to deploy Keycloak with your custom theme.
+Run the following command to deploy Keycloak with your custom theme:
 
 ```sh
 docker compose -f docker-compose.yaml up -d
@@ -53,10 +53,10 @@ docker compose -f docker-compose.yaml up -d
 ### Building image
 
 #### Building container image for custom theme
-In this section you will see how you can build a container image that includes pre-built custom theme.
+In this section you will see how to build a container image that includes pre-built custom theme.
 
 
-You will now package pre-built custom theme into a container image, by creating a file in the root directory and name it `Dockerfile.themes` and paste the below contents.
+Package the pre-built custom theme into a container image, by creating a file in the root directory and name it `Dockerfile.themes` and paste the following contents:
 
 ```Dockerfile
 ## Currently you are using busybox but you can use alpine image as well.
@@ -66,27 +66,28 @@ FROM busybox
 COPY src/themes/hcl /usr/src/themes/hcl
 ```
 
-Once the dockerfile is created you can now run following command to create a container image.
+Once the `Dockerfile` is created run the following command to create a container image.
 
 ```sh
 docker build -f Dockerfile.themes --no-cache -t hclds-keycloak-theme:latest .
 ```
 
 #### Building container image for Keycloak
-The Helm chart expects the image `hclds-keycloak:latest` to be available on the system in order to properly start the service. Ensure this image is available on your system before running the following installation steps.
+The Helm chart expects the image `hclds-keycloak:latest` on the system in order to properly start the service. Ensure this image on your system before running the following installation steps:
 ```sh
 docker image ls | grep hclds-keycloak
-hclds-keycloak                                                                  latest                  d2a806a74638   2 minutes ago   642MB
+Output: hclds-keycloak  latest    d2a806a74638    2 minutes ago   642MB
 ```
-If the image is not available yet, please refer to the section around [building the image for the service](../deployment/docker.md#build-the-container-for-the-service).
+If the image is not available yet, please refer to the section [building the image for the service](../deployment/docker.md#build-the-container-for-the-service).
 ### Prepare a YAML file to provide appropriate configuration
 
-Before you deploy or install your charts you need to prepare a `custom-values.yaml` file containing appropriate config values for the kube-native environment. Run following command and paste the below content:
+Create a custom values.yaml file `custom-values.yaml`:
 
 ```sh
 vi custom-values.yaml
 ```
 
+Add the below content to the `custom-values.yaml` file and replace the placeholders with appropriate values:
 ```yaml
 image:
   registry: ""
@@ -132,15 +133,9 @@ extraEnvVars:
 
 > **_Note:_**
 >
-> Replace `<HOSTNAME>` with your respective hostname, e.g. `localhost`.
+> Replace `<HOSTNAME>` with your respective hostname, for example `localhost`.
 
 Once the `custom-values.yaml` file is created you can install helm charts in this repo from `deployment/helm/hclds-keycloak`.
-
-
-
-
-
-
 
 
 ### Running helm install
@@ -151,36 +146,18 @@ To install the chart on local with the release name hclds-keycloak, go to `deplo
 helm install hclds-keycloak . -n hclds --create-namespace --values custom-values.yaml
 ```
 
-### Verify your Keycloak instance is running and healthy
+### Verifying your Keycloak instance is running and healthy
 
-Make sure that keycloak statefulset including its service and pods all have been created and are up and running via the following command:
+Make sure that keycloak is up and running using following command:
 
 ```sh
 kubectl get all -n hclds -o wide
-```
 
-This should return below output, that should show pod status that `Init:0/1`, this would mean that init container is running before actual Keycloak pod is initialized.
+Output:
 
-```sh
-kubectl -n auth get all -o wide
-NAME                              READY   STATUS     RESTARTS   AGE   IP             NODE       NOMINATED NODE   READINESS GATES
-pod/hclds-keycloak-0              0/1     Init:0/1   0          25s   10.244.2.122   minikube   <none>           <none>
-pod/hclds-keycloak-postgresql-0   1/1     Running    0          25s   10.244.2.123   minikube   <none>           <none>
 
-NAME                                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE   SELECTOR
-service/hclds-keycloak                 ClusterIP   10.104.28.186   <none>        80/TCP     25s   app.kubernetes.io/component=hclds-keycloak,app.kubernetes.io/instance=hclds-keycloak,app.kubernetes.io/name=hclds-keycloak
-service/hclds-keycloak-headless        ClusterIP   None            <none>        80/TCP     25s   app.kubernetes.io/component=hclds-keycloak,app.kubernetes.io/instance=hclds-keycloak,app.kubernetes.io/name=hclds-keycloak
-service/hclds-keycloak-postgresql      ClusterIP   10.101.15.39    <none>        5432/TCP   25s   app.kubernetes.io/component=primary,app.kubernetes.io/instance=hclds-keycloak,app.kubernetes.io/name=postgresql
-service/hclds-keycloak-postgresql-hl   ClusterIP   None            <none>        5432/TCP   25s   app.kubernetes.io/component=primary,app.kubernetes.io/instance=hclds-keycloak,app.kubernetes.io/name=postgresql
 
-NAME                                         READY   AGE   CONTAINERS       IMAGES
-statefulset.apps/hclds-keycloak              0/1     25s   hclds-keycloak   hclds-keycloak:latest
-statefulset.apps/hclds-keycloak-postgresql   1/1     25s   postgresql       docker.io/bitnami/postgresql:15.3.0-debian-11-r74
-```
 
-You can re-run the above command again and the below output shows that the init container has run and the Keycloak pod status is `Running`.
-
-```sh
 NAME                              READY   STATUS    RESTARTS   AGE    IP             NODE       NOMINATED NODE   READINESS GATES
 pod/hclds-keycloak-0              1/1     Running   0          114m   10.244.2.128   minikube   <none>           <none>
 pod/hclds-keycloak-postgresql-0   1/1     Running   0          120m   10.244.2.126   minikube   <none>           <none>
@@ -198,13 +175,15 @@ statefulset.apps/hclds-keycloak-postgresql   1/1     120m   postgresql       doc
 
 ## Verify your Keycloak deployment
 
-Once all steps have been executed, your Keycloak instance should be available via the URL `https://<HOSTNAME>/` if deployed using Helm. In case of Docker compose it should be accessible at `http://localhost:8080`.
+Once all steps have been executed, the Keycloak instance is available at:
 
-Once Keycloak is deployed successfully, you can now verify if the custom theme shows up in the theme selector. To verify follow below steps:
+- For Helm deployment, Keycloak instance is available through the URL `https://<HOSTNAME>/`. 
+- For Docker compose, Keycloak instance is accessible at `http://localhost:8080`.
+Once Keycloak is deployed successfully, verify if the custom theme shows up in the theme selector. To verify follow the steps:
 
-1. Log into the Admin Console.
+1. Log into the **Admin** Console.
 1. Select your realm from the drop-down box in the top left corner.
-1. Click Realm Settings from the menu.
-1. Click the Themes tab.
+1. Click **Realm Settings** from the menu.
+1. Click the **Themes** tab.
     1. To set the theme for the master Admin Console you should select `hcl` theme for the master realm.
     1. To see the changes to the Admin Console refresh the page.

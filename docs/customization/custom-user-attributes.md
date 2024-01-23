@@ -8,12 +8,12 @@ Use this procedure to enter custom attributes in the registration page.
 
 ### Procedure
 
-1. Copy the template themes/base/login/register.ftl to the login type of your custom theme.
+1. Copy the template `themes/base/login/register.ftl` to the log in type of your custom theme.
 
 2. Open the copy in an editor.
 
     For example, to add a mobile number to the registration page, add the following snippet to the form:
-        ```markdown
+        ```html
 
         <div class="form-group">
         <div class="${properties.kcLabelWrapperClass!}">
@@ -26,7 +26,7 @@ Use this procedure to enter custom attributes in the registration page.
         </div>
         ```    
 
-3. Ensure the name of the input html element starts with user.attributes. In the example above, the attribute will be stored by Keycloak with the name mobile.
+3. Ensure the name of the input HTML element starts with `user.attributes`. The attribute is stored by Keycloak with the name mobile.
 
 4. To see the changes, make sure your realm is using your custom theme for the login theme and open the registration page.
 
@@ -36,12 +36,12 @@ Use this procedure to manage custom attributes in the user profile page in the a
 
 ### Procedure -
 
-1. Copy the template themes/base/account/account.ftl to the account type of your custom theme.
+1. Copy the template `themes/base/account/account.ftl` to the account type of your custom theme.
 
 2. Open the copy in an editor.
 
     As an example to add a mobile number to the account page add the following snippet to the form:
-        ```markdown
+        ```html
 
         <div class="form-group">
         <div class="col-sm-2 col-md-2">
@@ -54,6 +54,6 @@ Use this procedure to manage custom attributes in the user profile page in the a
         </div>
         ```
 
-3. Ensure the name of the input html element starts with user.attributes.
+3. Ensure the name of the input HTML element starts with `user.attributes`.
 
 4. To see the changes, make sure your realm is using your custom theme for the account theme and open the user profile page in the account management console.

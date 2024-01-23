@@ -1,19 +1,19 @@
 # Custom themes
 
-Keycloak provides theme support for web pages and emails. This allows customizing the look and feel of end-user facing pages so they can be integrated with your applications.
+Keycloak provides theme support for web pages and emails. This allows customizing the look and feel of end-user facing pages, and they can be integrated with your applications.
 
 ## Theme types
 
-A theme can provide one or more types to customize different aspects of Keycloak. The types available are:
+A theme can provide one or more types to customize different aspects of Keycloak. The available types are:
 
 | Type | Description |
 | --- | --- |
 | Common | Files (resources) shared with all theme types |
 | Account | Account management |
 | Admin | Admin console |
-| Emails | Email templates that can be customized for emails sent by Keycloak |
-| Login | User facing public pages like login, password reset and so on |
-| Welcome | The welcome page shown when spinning up Keycloak and opening its landing page |
+| Emails | Email templates that can be customized for emails sent by Keycloak. |
+| Login | User facing public pages like login, password reset and so on. |
+| Welcome | The welcome page shown when spinning up Keycloak and opening its landing page. |
 
 ## Configuring theme
 
@@ -25,7 +25,7 @@ All theme types, except welcome, are configured through the `Admin Console`. To 
 
 ## Default themes
 
-Keycloak comes bundled with default themes in the server’s root themes directory. To simplify upgrading you should not edit the bundled themes directly. Instead create your own theme that extends one of the bundled themes.
+Keycloak comes bundled with default themes in the server root themes directory. To upgrade, do not edit the bundled themes directly. Instead, create your own theme that extends one of the bundled themes.
 
 ## Creating a theme
 
@@ -38,15 +38,15 @@ A theme consists of:
 - Scripts
 - Theme properties
 
-Unless you plan to replace every single page you should extend an existing theme. Most likely you will want to extend the `keycloak` theme, but you could also consider extending the base theme if you are significantly changing the look and feel of the pages. The base theme primarily consists of HTML templates and message bundles, while the `keycloak` theme primarily contains images and stylesheets.
+To replace every page extend the existing theme (`keycloak` theme), and extend the base theme to change the look and feel of the pages. The base theme primarily consists of HTML templates and message bundles, while the `keycloak` theme primarily contains images and stylesheets.
 
-When extending a theme you can override individual resources (templates, stylesheets, etc.). If you decide to override HTML templates bear in mind that you may need to update your custom template when upgrading to a new release as it could break.
+When extending a theme you can override individual resources (templates, stylesheets, etc.). To override HTML templates you need to update your custom template when upgrading to a new release as it could break.
 
-To create a new theme you can start by creating a new directory in the `themes` directory. The name of the directory becomes the name of the theme. For example to create a theme called `hcl-base` create the directory `themes/hcl-base`.
+Create a new directory in the `themes` directory and create a new theme. The name of the directory becomes the name of the theme. For example to create a theme called `hcl-base` create the directory `themes/hcl-base`.
 
-Inside the `theme` directory you should create a sub directory for each of the types your theme is going to provide. For example to add the login type to the `hcl-base` theme create the directory `themes/hcl-base/login`.
+Inside the `theme` directory create a subdirectory for each of the theme types provided. For example to add the login type to the `hcl-base` theme create the directory `themes/hcl-base/login`.
 
-For each theme type you should create a file `theme.properties` which allows setting some configuration for the theme. For example to configure the theme `themes/hcl-base/login` that you just created to extend the `keycloak` theme and import some common resources create the file `themes/hcl-base/login/theme.properties` with following contents:
+Create a configration file `theme.properties` and paste below content:
 
 ```properties
 parent=keycloak
@@ -64,9 +64,8 @@ Theme properties are set in the file `<THEME TYPE>/theme.properties` in the them
 | styles | Space-separated list of styles to include |
 | locales | Comma-separated list of supported locales |
 
-There are a list of properties that can be used to change the css class used for certain element types. For a list of these properties look at the `theme.properties` file in the corresponding type of the `keycloak` theme (`themes/keycloak/<THEME TYPE>/theme.properties`).
+Use theme list properties to change the css class used for certain element types. For a list of these properties look at the `theme.properties` file in the corresponding type of the `keycloak` theme (`themes/keycloak/<THEME TYPE>/theme.properties`). You can also add custom properties if needed.
 
-you can also add custom properties if needed.
 
 ### Stylesheets
 
@@ -86,7 +85,10 @@ Then edit `themes/hcl-base/login/theme.properties` and add:
 styles=css/login.css
 ```
 
-This will only apply styles from your custom stylesheet. To include the styles from the parent theme you need to load the styles from that theme as well. Do this by editing `themes/hcl-base/login/theme.properties` and changing styles to:
+> **_Note:_**
+>
+> This will only apply styles from your custom stylesheet.
+To include the styles from the parent theme you need to load the styles from that theme by editing `themes/hcl-base/login/theme.properties` and changing styles to:
 
 ```properties
 styles=web_modules/@patternfly/react-core/dist/styles/base.css web_modules/@patternfly/react-core/dist/styles/app.css node_modules/patternfly/dist/css/patternfly.min.css node_modules/patternfly/dist/css/patternfly-additions.min.css lib/pficon/pficon.css css/login.css
@@ -94,11 +96,11 @@ styles=web_modules/@patternfly/react-core/dist/styles/base.css web_modules/@patt
 
 > **_Note:_**
 >
-> To override styles from the parent stylesheets it’s important that your stylesheet is listed last.
+> To override styles from the parent stylesheets it is important that your stylesheet is listed last.
 
 ### Scripts
 
-A theme can have one or more scripts, to add a script create a file in the `<THEME TYPE>/resources/js` directory of your theme. Then add it to the scripts property in theme.properties.
+A theme can have one or more scripts, to add a script create a file in the `<THEME TYPE>/resources/js` directory of your theme. Then add it to the scripts property in `theme.properties`.
 
 For example to add script.js to the `hcl-base` create `themes/hcl-base/login/resources/js/script.js` with the following content:
 
@@ -114,11 +116,10 @@ scripts=js/script.js
 
 ### Images
 
-To make images available to the theme add them to the `<THEME TYPE>/resources/img` directory of your theme. These can be used from within stylesheets or directly in HTML templates.
+To make images available to the theme add them to the `<THEME TYPE>/resources/img` directory of your theme. These are used within stylesheets or directly in HTML templates.
 
-For example to add an image to the `hcl-base` copy an image to `themes/hcl-base/login/resources/img/image.jpg`.
+For example to add an image to the `hcl-base` copy an image to `themes/hcl-base/login/resources/img/image.jpg`. You can then use this image within a custom stylesheet as shown:
 
-you can then use this image from within a custom stylesheet as below:
 
 ```css
 body {
@@ -135,9 +136,9 @@ Or to use directly in HTML templates add the following to a custom HTML template
 
 ### Messages
 
-The strings used in the templates are loaded from message bundles. A theme that extends another theme will inherit all messages from the parent’s message bundle and you can override individual messages by adding `<THEME TYPE>/messages/messages_en.properties` to your theme.
+FTL templates loads all the messages from a message bundle. If a theme is extending an existing theme, it will inherit all the messages from its parent's message bundle. You can also override individual messages by adding `<THEME TYPE>/messages/messages_en.properties` file to the theme.
 
-For example to replace `Username` on the login form with your `Username` for the `hcl-base` create the file `themes/hcl-base/login/messages/messages_en.properties` with the following content:
+For example to override `Username` in the `hcl-base` theme on the login form, create the file `themes/hcl-base/login/messages/messages_en.properties` with the following content:
 
 ```properties
 usernameOrEmail=User
@@ -158,7 +159,7 @@ usernameOrEmail=Brukernavn
 password=Passord
 ```
 
-All messages you don’t provide a translation for will use the default English translation.
+All messages provide are not translated. You can use the default English translation.
 
 Then edit `themes/hcl-base/login/theme.properties` and add:
 
@@ -166,28 +167,28 @@ Then edit `themes/hcl-base/login/theme.properties` and add:
 locales=en,no
 ```
 
-Finally you need to add a translation for the language selector. This is done by adding a message to the English translation. To do this add the following to `themes/hcl-base/account/messages/messages_en.properties` and `themes/hcl-base/login/messages/messages_en.properties`:
+To add a translation for the language selector. This is done by adding a message to the English translation. To do this add the following to `themes/hcl-base/account/messages/messages_en.properties` and `themes/hcl-base/login/messages/messages_en.properties`:
 
 ```properties
 locale_no=Norsk
 ```
 
-By default message properties files should be encoded using ISO-8859-1. It’s also possible to specify the encoding using a special header. For example to use UTF-8 encoding:
+By default, message properties files should be encoded using ISO-8859-1 and specify the encoding using a special header. For example to use UTF-8 encoding:
 
 ```properties
 # encoding: UTF-8
 usernameOrEmail=....
 ```
 
-See [Locale Selector](https://www.keycloak.org/docs/latest/server_admin/#_user_locale_selection) on details on how the current locale is selected.
+For more information on how the current locale is selected, see [Locale Selector](https://www.keycloak.org/docs/latest/server_admin/#_user_locale_selection).
 
 ### HTML templates
 
 Keycloak uses [Freemarker Templates](https://freemarker.apache.org/) in order to generate HTML. You can override individual templates in your own theme by creating `<THEME TYPE>/<TEMPLATE>.ftl`. For a list of templates used see `themes/base/<THEME TYPE>`.
 
-When creating a custom template it is a good idea to copy the template from the base theme to your own theme, then applying the modifications you need. Bear in mind when upgrading to a new version of Keycloak you may need to update your custom templates to apply changes to the original template if applicable.
+When creating a custom template copy the template from the base theme to your own theme, then apply the modifications you need. Bear in mind when upgrading to a new version of Keycloak you need to update your custom templates to apply changes to the original template if applicable.
 
-For example to create a custom login form for the `hcl-base` theme copy `themes/base/login/login.ftl` to `themes/hcl-base/login` and open it in an editor. After the first line (`<#import …​>`) add `<h1>HELLO WORLD!</h1>` like so:
+For example to create a custom login form for the `hcl-base` theme, copy `themes/base/login/login.ftl` to `themes/hcl-base/login` and open it in an editor. After the first line (`<#import …​>`) add `<h1>HELLO WORLD!</h1>` like so:
 
 ```HTML
 <#import "template.ftl" as layout>
@@ -195,13 +196,13 @@ For example to create a custom login form for the `hcl-base` theme copy `themes/
 ...
 ```
 
-Check out the [FreeMarker Manual](https://freemarker.apache.org/docs/index.html) for more details on how to edit templates.
+For more information on how to edit templates, see [FreeMarker Manual](https://freemarker.apache.org/docs/index.html).
 
 ### Emails
 
 To edit the subject and contents for emails, for example password recovery email, add a message bundle to the email type of your theme. There are three messages for each email. One for the subject, one for the plain text body and one for the html body.
 
-To see all emails available take a look at `themes/base/email/messages/messages_en.properties`.
+To see all emails available see `themes/base/email/messages/messages_en.properties`.
 
 For example to change the password recovery email for the `hcl-base` `theme create themes/hcl-base/email/messages/messages_en.properties` with the following content:
 
@@ -213,7 +214,7 @@ passwordResetBodyHtml=<a href="{0}">Reset password</a>
 
 ### Theme selector
 
-By default the theme configured for the realm is used, with the exception of clients being able to override the login theme. This behavior can be changed through the Theme Selector SPI.
+By default, the theme configured for the realm is used, with the except of clients being able to override the login theme. This behavior is changed through the **Theme Selector SPI**.
 
 This could be used to select different themes for desktop and mobile devices by looking at the user agent header, for example.
 
