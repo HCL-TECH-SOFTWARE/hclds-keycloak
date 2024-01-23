@@ -79,7 +79,7 @@ docker image ls | grep hclds-keycloak
 Output: hclds-keycloak  latest    d2a806a74638    2 minutes ago   642MB
 ```
 If the image is not available yet, please refer to the section [building the image for the service](../deployment/docker.md#build-the-container-for-the-service).
-### Prepare a YAML file to provide appropriate configuration
+### Prepare a YAML file to provide the appropriate configuration
 
 Create a custom values.yaml file `custom-values.yaml`:
 
@@ -87,7 +87,7 @@ Create a custom values.yaml file `custom-values.yaml`:
 vi custom-values.yaml
 ```
 
-Add the below content to the `custom-values.yaml` file and replace the placeholders with appropriate values:
+Add the following content to the `custom-values.yaml` file and replace the placeholders with appropriate values:
 ```yaml
 image:
   registry: ""

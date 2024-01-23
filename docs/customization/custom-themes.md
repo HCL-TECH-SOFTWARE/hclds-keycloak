@@ -46,7 +46,7 @@ Create a new directory in the `themes` directory and create a new theme. The nam
 
 Inside the `theme` directory create a subdirectory for each of the theme types provided. For example to add the login type to the `hcl-base` theme create the directory `themes/hcl-base/login`.
 
-Create a configration file `theme.properties` and paste below content:
+Create a configration file `theme.properties` and paste following content:
 
 ```properties
 parent=keycloak
@@ -136,7 +136,7 @@ Or to use directly in HTML templates add the following to a custom HTML template
 
 ### Messages
 
-FTL templates loads all the messages from a message bundle. If a theme is extending an existing theme, it will inherit all the messages from its parent's message bundle. You can also override individual messages by adding `<THEME TYPE>/messages/messages_en.properties` file to the theme.
+Freemarker templates (FTL) loads all the messages from a message bundle. If a theme is extending an existing theme, it will inherit all the messages from its parents message bundle. You can also override individual messages by adding `<THEME TYPE>/messages/messages_en.properties` file to the theme.
 
 For example to override `Username` in the `hcl-base` theme on the login form, create the file `themes/hcl-base/login/messages/messages_en.properties` with the following content:
 
