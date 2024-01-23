@@ -9,7 +9,7 @@ metadata:
   name: {{ template "common.names.fullname" . }}
   namespace: {{ include "common.names.namespace" . | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: keycloak
+    app.kubernetes.io/component: {{ include "common.names.fullname" . }}
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
@@ -26,7 +26,7 @@ spec:
     {{- include "common.tplvalues.render" (dict "value" .Values.updateStrategy "context" $ ) | nindent 4 }}
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
-      app.kubernetes.io/component: keycloak
+      app.kubernetes.io/component: {{ include "common.names.fullname" . }}
   template:
     metadata:
       annotations:
@@ -41,7 +41,7 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
         {{- end }}
       labels: {{- include "common.labels.standard" . | nindent 8 }}
-        app.kubernetes.io/component: keycloak
+        app.kubernetes.io/component: {{ include "common.names.fullname" . }}
         {{- if .Values.podLabels }}
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
@@ -94,7 +94,7 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
         {{- end }}
       containers:
-        - name: keycloak
+        - name: {{ include "common.names.fullname" . }}
           image: {{ template "keycloak.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.lifecycleHooks }}
@@ -264,6 +264,8 @@ spec:
             - name: custom-init-scripts
               mountPath: /docker-entrypoint-initdb.d
             {{- end }}
+            - name: {{ printf "%s-realm-configuration" .Values.ssoConfiguration.realmName }}
+              mountPath: /opt/bitnami/keycloak/data/import
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
@@ -293,6 +295,9 @@ spec:
           configMap:
             name: {{ include "keycloak.initdbScriptsCM" . }}
         {{- end }}
+        - name: {{ printf "%s-realm-configuration" .Values.ssoConfiguration.realmName }}
+          configMap:
+            name: {{ printf "%s-realm-configuration" .Values.ssoConfiguration.realmName }}
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}

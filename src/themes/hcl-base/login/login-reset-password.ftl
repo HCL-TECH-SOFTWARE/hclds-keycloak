@@ -6,14 +6,14 @@
         <form id="kc-reset-password-form" class="${properties.kcFormClass!}" action="${url.loginAction}" method="post">
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcLabelWrapperClass!}">
-                    <label for="username" class="${properties.kcLabelClass!}" <#if locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif  locale.currentLanguageTag = 'he'> style="float: right;"</#if>><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
+                    <label for="username" class="${properties.kcLabelClass!}" <#if locale?? && locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="float: right;"</#if>><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="username" name="username" class="${properties.kcInputClass!}" autofocus value="${(auth.attemptedUsername!'')}" aria-invalid="<#if messagesPerField.existsError('username')>true</#if>"
-                    <#if locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif  locale.currentLanguageTag = 'he'> style="text-align: right;"</#if>/>
+                    <#if locale?? && locale.currentLanguageTag = 'ar'>style="text-align: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="text-align: right;"</#if>/>
                     <#if messagesPerField.existsError('username')>
                         <span id="input-error-username" class="${properties.kcInputErrorMessageClass!}" aria-live="polite"
-                        <#if locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif  locale.currentLanguageTag = 'he'> style="float: right;"</#if>>
+                        <#if locale?? && locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="float: right;"</#if>>
                                     ${kcSanitize(messagesPerField.get('username'))?no_esc}
                         </span>
                     </#if>

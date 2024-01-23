@@ -117,7 +117,7 @@
       <#if displayInfo>
               <div id="kc-info" class="${properties.kcSignUpClass!}">
                   <div id="kc-info-wrapper" class="${properties.kcInfoAreaWrapperClass!}"
-                    <#if locale.currentLanguageTag = 'ar'>style="text-align: right"<#elseif locale.currentLanguageTag = 'he'> style="text-align: right;"</#if>>
+                    <#if locale?? && locale.currentLanguageTag = 'ar'>style="text-align: right"<#elseif locale.currentLanguageTag = 'he'> style="text-align: right;"</#if>>
                     <#nested "info">
                   </div>
               </div>

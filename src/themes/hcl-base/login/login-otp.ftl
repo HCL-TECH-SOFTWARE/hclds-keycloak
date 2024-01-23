@@ -26,7 +26,7 @@
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcLabelWrapperClass!}">
                     <label for="otp" class="${properties.kcLabelClass!}"
-                    <#if locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif  locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("loginOtpOneTime")}</label>
+                    <#if locale?? && locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("loginOtpOneTime")}</label>
                 </div>
 
             <div class="${properties.kcInputWrapperClass!}">
@@ -35,7 +35,7 @@
 
                 <#if messagesPerField.existsError('totp')>
                     <span id="input-error-otp-code" class="${properties.kcInputErrorMessageClass!}"
-                          aria-live="polite" <#if locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif  locale.currentLanguageTag = 'he'> style="float: right;"</#if>>
+                          aria-live="polite" <#if locale?? && locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="float: right;"</#if>>
                         ${kcSanitize(messagesPerField.get('totp'))?no_esc}
                     </span>
                 </#if>

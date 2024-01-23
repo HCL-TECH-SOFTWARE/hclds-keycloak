@@ -8,7 +8,7 @@
                 <div class="${properties.kcFormGroupClass!}">
                     <div class="${properties.kcLabelWrapperClass!}">
                         <label for="username" class="${properties.kcLabelClass!}"
-                        <#if locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif  locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("username")}</label>
+                        <#if locale?? && locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("username")}</label>
                     </div>
                     <div class="${properties.kcInputWrapperClass!}">
                         <input type="text" id="username" name="username" value="${(user.username!'')}"
@@ -28,7 +28,7 @@
                 <div class="${properties.kcFormGroupClass!}">
                     <div class="${properties.kcLabelWrapperClass!}">
                         <label for="email" class="${properties.kcLabelClass!}"
-                        <#if locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif  locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("email")}</label>
+                        <#if locale?? && locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("email")}</label>
                     </div>
                     <div class="${properties.kcInputWrapperClass!}">
                         <input type="text" id="email" name="email" value="${(user.email!'')}"
@@ -48,7 +48,7 @@
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcLabelWrapperClass!}">
                     <label for="firstName" class="${properties.kcLabelClass!}"
-                    <#if locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif  locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("firstName")}</label>
+                    <#if locale?? && locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("firstName")}</label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="firstName" name="firstName" value="${(user.firstName!'')}"
@@ -67,7 +67,7 @@
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcLabelWrapperClass!}">
                     <label for="lastName" class="${properties.kcLabelClass!}"
-                    <#if locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif  locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("lastName")}</label>
+                    <#if locale?? && locale.currentLanguageTag = 'ar'>style="float: right;"<#elseif locale?? && locale.currentLanguageTag = 'he'> style="float: right;"</#if>>${msg("lastName")}</label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
                     <input type="text" id="lastName" name="lastName" value="${(user.lastName!'')}"

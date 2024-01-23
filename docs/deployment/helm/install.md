@@ -53,7 +53,9 @@ kubectl logs pod/hclds-keycloak-0
 
 ## Keycloak can be accessed through the following DNS name from within your cluster:
 
+```console
     hclds-keycloak.default.svc.cluster.local (port 80)
+```
 
 ## Access via port-forwarding
 
@@ -65,7 +67,7 @@ kubectl port-forward svc/hclds-keycloak 8080:80
 
 output:
 
-```
+```console
 Forwarding from 127.0.0.1:8080 -> 8080
 Forwarding from [::1]:8080 -> 8080
 Handling connection for 8080
@@ -80,7 +82,7 @@ kubectl port-forward svc/hclds-keycloak 8443:443
 
 output:
 
-```
+```console
 Forwarding from 127.0.0.1:8443 -> 8443
 Forwarding from [::1]:8443 -> 8443
 Handling connection for 8443
@@ -97,7 +99,7 @@ Try logging in to the Administrative Console with user `admin:admin` and start u
 
 The helm charts allow you to automatically expose the service through an existing ingress service. To do so, you can add, for example, the following section to your `custom-values.yaml` file:
 
-```
+```yaml
 # leverage DX ingress and wire it up
 ingress:
   enabled: true

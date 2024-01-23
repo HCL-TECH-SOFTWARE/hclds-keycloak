@@ -31,5 +31,5 @@ spec:
       protocol: TCP
       targetPort: http
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
-    app.kubernetes.io/component: keycloak
+    app.kubernetes.io/component: {{ include "common.names.fullname" . }}
 {{- end }}

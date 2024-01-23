@@ -25,7 +25,7 @@ metadata:
   name: {{ printf "%s-env-vars" (include "common.names.fullname" .) }}
   namespace: {{ include "common.names.namespace" . | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: keycloak
+    app.kubernetes.io/component: {{ include "common.names.fullname" . }}
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
@@ -84,12 +84,4 @@ data:
   KEYCLOAK_LOG_OUTPUT: {{ .Values.logging.output | quote }}
   KC_LOG_LEVEL: {{ .Values.logging.level | quote }}
   {{- end }}
-  {{ $defaultHostName := default "localhost" .Values.ssoIntegration.defaultHostName }}
-  {{ $applications :=  .Values.ssoIntegration.applications }}
-  KEYCLOAK_IMPORT_HOSTNAME: {{ $defaultHostName }}
-  CNX_IMPORT_HOSTNAME: {{ default $defaultHostName $applications.cnx.realmConfiguration.hostname | quote }}
-  KEYCLOAK_IMPORT_CNX_CLIENT_ID: {{ default "hcl-cnx-oidc-client" $applications.cnx.realmConfiguration.clientId | quote }}
-  DX_IMPORT_HOSTNAME: {{ default $defaultHostName $applications.dx.realmConfiguration.hostname | quote }}
-  KEYCLOAK_IMPORT_DX_CLIENT_ID: {{ default "hcl-dx-oidc-client" $applications.dx.realmConfiguration.clientId | quote }}
-  LEAP_IMPORT_HOSTNAME: {{ default $defaultHostName $applications.leap.realmConfiguration.hostname | quote }}
-  KEYCLOAK_IMPORT_LEAP_CLIENT_ID: {{ default "hcl-leap-oidc-client" $applications.leap.realmConfiguration.clientId | quote }}
+  

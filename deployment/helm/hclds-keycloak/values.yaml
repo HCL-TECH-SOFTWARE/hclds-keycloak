@@ -1097,27 +1097,51 @@ logging:
   output: default
   level: INFO
 
-## @section DigitalSolutions product SSO integration parameters
+## @section DigitalSolutions product SSO configuration parameters
 ## Values in the section are applied when you install the helm chart for the first time. 
 ## Changes to these values won't be updated when you do subsequent upgrade using helm upgrade.
-ssoIntegration:
-  defaultHostName: "localhost"
-  applications:
-    cnx:
-      realmConfiguration:
-        # Hostname defaults to `localhost` if not set.
-        hostname: ""
-        # Client id for HCL Connections. Defaults to `hcl-cnx-oidc-client` if not set.
-        clientId: ""
-    dx:
-      realmConfiguration:
-        # Hostname defaults to `localhost` if not set.
-        hostname: ""
-        # Client id for HCL Digital Experience. Defaults to `hcl-dx-oidc-client` if not set.
-        clientId: ""
-    leap:
-      realmConfiguration:
-        # Hostname defaults to `localhost` if not set.
-        hostname: ""
-        # Client id for HCL Leap. Defaults to `hcl-leap-oidc-client` if not set.
-        clientId: ""
+ssoConfiguration:
+  ## Indicates if realm configuration for sso should be created or not.
+  enabled: true
+  ## Realm name.
+  realmName: "hcl"
+  ## Login theme for the realm
+  loginTheme: "hcl"
+  ## Clients for the realm
+  clients:
+  - name: "HCL Connections"
+    description: "HCL Connections"
+    clientId: "hcl-cnx-oidc-client"
+    secret: "hcl-cnx-oidc-client-secret"
+    authorizationServicesEnabled: true
+    redirectUris: []
+    webOrigins: []
+  - name: "HCL Digital Experience"
+    description: "HCL Digital Experience"
+    clientId: "hcl-dx-oidc-client"
+    secret: "hcl-dx-oidc-client-secret"
+    authorizationServicesEnabled: true
+    redirectUris: []
+    webOrigins: []
+  ## User federation configuration
+  userFederation:
+    ## Indicates if user federations is enabled and should import configuration
+    enabled: false
+    ## Display name of provider when linked in the Admin UI.
+    name: ""
+    ## Type of the authentication method used during LDAP bind operation. Possible values `none`, `simple`.
+    authType: "simple"
+    ## Connection url for connecting to an LDAP system, e.g. ldap://dx-deployment-open-ldap.dxns.svc.cluster.local:1389
+    connectionUrl: ""
+    ## User's DN, e.g. "dc=dx,dc=com"
+    usersDn: ""
+    ## Comma separated user object classes, e.g. "inetOrgPerson, organizationalPerson"
+    userObjectClasses: "inetOrgPerson, organizationalPerson"
+    ## Name of the LDAP attribute, which is mapped as Keycloak username.
+    usernameLDAPAttribute: "uid"
+    ## Name of the LDAP attribute, which is used as a unique object identifier (UUID) for objects in LDAP.
+    uuidLDAPAttribute: "uid"
+    ## Bind DN, e.g. "cn=dx_user,dc=dx,dc=com"
+    bindDn: ""
+    ## Bind credentials, to access LDAP and sync user's into Keycloak
+    bindCredential: ""

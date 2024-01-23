@@ -1,0 +1,4 @@
+*
+!src/data/import/*
+!src/scripts/*
+!src/themes/*

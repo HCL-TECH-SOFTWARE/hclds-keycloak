@@ -5,7 +5,7 @@ HTTP_PORT="${KEYCLOAK_HTTP_PORT:-8080}"
 RELATIVE_PATH="${KEYCLOAK_HTTP_RELATIVE_PATH:-"/"}"
 
 KEYCLOAK_HOST=http://$BIND_ADDRESS:$HTTP_PORT$RELATIVE_PATH
-KEYCLOAK_DEFAULT_THEME=hcl
+KEYCLOAK_DEFAULT_THEME="${KEYCLOAK_DEFAULT_THEME:-"hcl"}"
 
 echo "Running script to set default theme"
 # Wait until Keycloak API endpoint is available
