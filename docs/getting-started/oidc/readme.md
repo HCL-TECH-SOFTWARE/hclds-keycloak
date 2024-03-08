@@ -1,3 +1,4 @@
+
 # OpenID Connect
 
 Increasing numbers of enterprises use identity providers (IdPs) to manage the identities, access rights, and authentication flows of their customers, employees, and partners in their applications and IT landscape. Common IdP solutions and services include Microsoft Azure Active Directory, Okta, Auth0, and Keycloak. Each solution has unique approaches and capabilities that might make them a good choice, but all focus on common and standardized authentication strategies, most notably OIDC.

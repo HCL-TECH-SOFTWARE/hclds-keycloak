@@ -44,11 +44,9 @@ Keycloak includes a suite of auditing capabilities. You can record every login a
 
 For further information please refer to [Configuring auditing to track events](https://www.keycloak.org/docs/latest/server_admin/index.html#configuring-auditing-to-track-events).
 
-
 ## Best practices for Keycloak setups
 
 There are some best practices that can be following when setting up a Keycloak service in extended test environments that have additional requirements to scalability or security:
-
 - [Realm Keys and Key Rotation](./best-practices/rotating-keys.md)
 - [Scaling Keycloak](./best-practices/scaling.md)
 - [Resource Management for Pods and Containers](./best-practices/resources.md)

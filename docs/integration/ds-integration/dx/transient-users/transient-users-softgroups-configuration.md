@@ -5,6 +5,7 @@
 The [Rule-based user groups](https://opensource.hcltechsw.com/digital-experience/latest/deployment/manage/security/people/authorization/users_and_groups/rule_based_user_groups/) (Softgroups) for HCL Portal allow you to define dynamic portal user groups. For more information, see [capabilities](https://opensource.hcltechsw.com/digital-experience/latest/deployment/manage/security/people/authorization/users_and_groups/rule_based_user_groups/#what-you-can-do-with-rule-based-user-groups).
 
 The rule-based user group is implemented as a custom repository adapter for Virtual Member Manager (VMM). A unique group name represents rule-based user groups, the Lightweight Directory Access Protocol (LDAP) search filter rule expression, and an optional description. The HCL DX handles them as normal portal user groups. They are in a special base distinguished name in the user realm hierarchy.
+
 Administrators can create, define, update, or delete them by using the VMM API in WebSphere® Application Server or the Portal User Management Architecture (PUMA) in HCL DX like other groups. You can use these Softgroups to assign security role mappings, portal access permissions, or visibility rules the same way as other portal user groups. The rule-based user groups feature handles the correct membership determination for the users during run time.
 
 This configuration allows user roles and groups from an Identity Provider's (IdP) claim token, to be mapped with these Softgroups. To leverage this feature, you have to build a custom Java Authentication and Authorization Service (JAAS) Login Module. For more information on using `Softgroup service`, see [Building a custom JAAS login module for your Identity Provider (IdP)](transient-users-building-jaas-modules.md).
@@ -130,22 +131,29 @@ Run the wp-create-cur, wp-create-cur-custom-property, and wp-update-group-reposi
 
 1. Open a command prompt and change to wp_profile_root/ConfigEngine directory.
 1. Run the following task to add the repository configuration to VMM:
+
     ```sh
     ./ConfigEngine.sh wp-create-cur -Dfederated.cur.id=SoftGroups -Dfederated.cur.adapterClassName=com.ibm.wps.vmm.adapter.softgroups.SoftgroupsAdapter -Dfederated.cur.baseDN=o=softgroups -DWasUserId=yourwasuserid -DWasPassword=yourwaspassword
     ```
+
 1. Run the following command to update the repository configuration with custom properties:
+
     ```sh
     ./ConfigEngine.sh wp-create-cur-custom-property -Dcur.id=SoftGroups -Dcur.name=dataSource -Dcur.value=nameofdatasource -DWasUserId=wpsadmin -DWasPassword=yourwaspassword
 
     ./ConfigEngine.sh wp-create-cur-custom-property -Dcur.id=SoftGroups -Dcur.name=dbSchema -Dcur.value=yourschema -DWasUserId=wpsadmin -DWasPassword=yourwaspassword
     ```
+
     Example of DB2 specific tasks:
+
     ```sh
     ./ConfigEngine.sh wp-create-cur-custom-property -Dcur.id=SoftGroups -Dcur.name=dataSource -Dcur.value=jdbc/sgdb -DWasUserId=wpsadmin -DWasPassword=wpsadmin
 
     ./ConfigEngine.sh wp-create-cur-custom-property -Dcur.id=SoftGroups -Dcur.name=dbSchema -Dcur.value=softgrouptest -DWasUserId=wpsadmin -DWasPassword=wpsadmin
     ```
+
 1. Enable the cross-repository group lookup for the repositories you want to use. To find Groups Entities in the SoftGroups Repository, run the following task:
+
     ```sh
     ./ConfigEngine.sh wp-update-group-repository-relationship -Drepository.id=transientidp -Drepository.forgroups=SoftGroups -DWasUserId=wpsadmin -DWasPassword=yourwaspassword
     ```
@@ -266,5 +274,5 @@ Please refer to your IdP's documentation for managing user groups, the following
 ### Verify if everything works as expected
 
 1. Ensure you have logged out from DX.
-1. Navigate to https://&lt;DX_HOSTNAME&gt;/wps/myportal/Home and login with the test user, who was added to the `softgrouptest` group.
+1. Navigate to https://&lt;DX_HOSTNAME&gt;/wps/myportal/Home and log in with the test user, who was added to the `softgrouptest` group.
 1. Verify if the user that you have logged in with can access the test portal page.

@@ -30,7 +30,7 @@ Similar to how you can update the layout of existing screens, an IdP could suppo
 
 ### Additional portlets
 
-If you are using additional portlets on the landing or the login page, it won't be straightforward to re-use or migrate custom code to the IdP. This could be very specific to IdP and if they allow you to customize page layouts in a way that you can add custom portlets to the custom layouts, mostly by writing them from scratch. There could be some additional security implications that you should be mindful about. This could be fairly complex to achieve, or it could even mean that you won't be able to have additional portlets on the IdPs login page.
+If you are using additional portlets on the landing or the log in page, it won't be straightforward to re-use or migrate custom code to the IdP. This could be very specific to IdP and if they allow you to customize page layouts in a way that you can add custom portlets to the custom layouts, mostly by writing them from scratch. There could be some additional security implications that you should be mindful about. This could be fairly complex to achieve, or it could even mean that you won't be able to have additional portlets on the IdPs login page.
 
 ### Custom login pages for virtual portals
 

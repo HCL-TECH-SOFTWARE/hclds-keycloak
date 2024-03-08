@@ -1,3 +1,4 @@
+
 # JWT token
 
 JSON Web Token (JWT) is an open standard that defines a compact and self-contained way for securely transmitting information between parties. In the context of OpenID Connect (OIDC), JWT plays a pivotal role in facilitating secure authentication and authorization.

@@ -73,7 +73,7 @@ Add the following custom properties:
 
 | Name                                  | Value                                                                                   |
 | ------------------------------------- | --------------------------------------------------------------------------------------- |
-| provider_1.identifier                 | hcl                                                                                     |
+| provider_1.identifier                 | keycloak                                                                                     |
 | provider_1.clientId                   | hcl-cnx-oidc-client                                                                     |
 | provider_1.clientSecret               | &lt;CLIENT_SECRET&gt;                                                                   |
 | provider_1.authorizeEndpointUrl       | https://&lt;IDP_HOSTNAME&gt;/auth/realms/hcl/protocol/openid-connect/auth               |
@@ -229,17 +229,26 @@ Path - /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/config/cells/bvt1Node01Cel
   <connections-ee-settings preloadJS="false" preloadJSSafari="true" useSSO="true">
   ```
 ## Updating mobile-config
+
 For mobile use we need to update the security settings in the `mobile-config.xml`
+
 Path - /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/config/cells/bvt1Node01Cell/LotusConnections-config/mobile-config.xml
+
 ```sh
     <SecuritySettings enabled="true">
+
        <AuthType>OAuth</AuthType> 
+
        <OAuthAuthorizationURL>https://<IDP_HOSTNMAE>/realms/<IDP_REALM>/protocol/openid-connect/auth</OAuthAuthorizationURL> 
+
        <OAuthTokenURL>https://<IDP_HOSTNMAE>/realms/<IDP_REALM>/protocol/openid-connect/token</OAuthTokenURL> 
+
        <OAuthClientId>connections_social_mobile</OAuthClientId> 
+
        :
        :
     </SecuritySettings>
+
 ```
 
 ### Restarting WAS
@@ -259,4 +268,3 @@ Path - /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/config/cells/bvt1Node01Cel
 ## Reference
 
 For more information about OIDC and Keycloak in HCL CNX and HCL DS in general, refer to the open source repository [hclds-keycloak](https://github.com/HCL-TECH-SOFTWARE/hclds-keycloak). This repository contains Keycloak as a reference implementation of an Identity Provider (IdP) to serve as an internal validation tool for HCL Digital Solutions products. The goal of this repository is to provide a hands-on experience with common strategies, configurations, and solutions related to integrating IdPs using the OIDC authentication protocol.
-

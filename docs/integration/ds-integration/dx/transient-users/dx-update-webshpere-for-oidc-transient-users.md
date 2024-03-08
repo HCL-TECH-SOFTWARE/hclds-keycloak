@@ -106,6 +106,4 @@ Once you have updated WebSphere to support OIDC authentication for DX, you shoul
 
 - [Building Custom JAAS Login Module for your Identity Provider (IdP)](./transient-users-building-jaas-modules): This document outlines how to build a custom JAAS Login Module, enabling you to make additional authentication decisions or add information to the subject to make fine-grained authorization decisions inside your application.
 
-
-
 - [Configuring Rule-based user groups adapter for Transient Users](./transient-users-softgroups-configuration.md): This is an optional configuration, to strengthen your transient user integration with additional features such as user role/group mapping from an IdP to DX.

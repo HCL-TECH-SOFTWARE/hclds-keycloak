@@ -1,3 +1,4 @@
+
 # Realm Keys and Key Rotation
 
 The authentication protocols that are used by Keycloak require cryptographic signatures and sometimes encryption. Keycloak uses asymmetric key pairs, a private and public key, to accomplish this.
