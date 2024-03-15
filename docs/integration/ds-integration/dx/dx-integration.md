@@ -38,10 +38,10 @@ Create the new login option to map `/wps/myportal` for the users to access:
 1. On the **Manage Pages** page, click **Select Page**.
 1. Click the **Content Root** page > Home** page.
 1. Click **New URL**. On the next page, add the following values:
-1. Set **Title** to `Login-IdP`.
+    1. Set **Title** to `Login-IdP`.
     1. Select the **A link to a Web page with the following URL** radio button.
-1. Set the URL to `https://<DX_HOSTNAME>/wps/myportal`.
-1. Click **OK**.
+    1. Set the URL to `https://<DX_HOSTNAME>/wps/myportal`.
+    1. Click **OK**.
 1. On the **Manage Pages** page, select the **Home** page. Make sure you see the newly added **Login-IdP** URL. In the same row, click the **Set Page Permission** action.
 1. On the **Resource Permissions** page, find the **User** row and click the **Edit Role** action.
 1. Click **Add**.
@@ -58,8 +58,9 @@ Follow the steps to update the unique name of the new IdP specific login page:
 ## Testing the OIDC login flow
 
 Follow the steps to test the OIDC login flow:
+
 1. Navigate to `https://<DX_HOSTNAME>/wps/portal`.
 1. Click **Log in**.
-    - This redirects you to the IdP instance login view
+    - This redirects you to the IdP instance log in view
 1. Log in with an existing user and password.
     - You are redirected back to DX and logged in as the correct user.

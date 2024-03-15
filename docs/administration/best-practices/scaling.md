@@ -1,3 +1,4 @@
+
 # Scaling Keycloak
 
 ## Manual Scaling

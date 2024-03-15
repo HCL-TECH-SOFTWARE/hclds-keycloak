@@ -390,7 +390,6 @@ You can download the entire code for the `ITransientUsersLoginModule interface` 
     cp dx.jaas.sample.jar /opt/HCL/wp_profile/classes
     ```
 
-
 1. Configure the global security settings in WAS ISC. Go to **Global Security** > **JAAS - System Logins** > **WEB_INBOUND**.
 
 1. Add the class name defined within your JAR file or use the default `com.hcl.dx.auth.jaas.impl.TransientUsersLoginModule` class.

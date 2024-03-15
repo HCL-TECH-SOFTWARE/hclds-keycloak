@@ -12,3 +12,6 @@ All instructions are written in a way to work with the HCL DS Keycloak service, 
 ## HCL Digital Experience
 
 - [Configuring OIDC for HCL Digital Experience](./dx/readme.md)
+
+## TroubleShoot
+- [Troubleshooting OIDC Configuration](dx/oidc-troubleshooting.md)

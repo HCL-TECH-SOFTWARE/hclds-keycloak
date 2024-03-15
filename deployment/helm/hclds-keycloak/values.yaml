@@ -1145,3 +1145,4 @@ ssoConfiguration:
     bindDn: ""
     ## Bind credentials, to access LDAP and sync user's into Keycloak
     bindCredential: ""
+

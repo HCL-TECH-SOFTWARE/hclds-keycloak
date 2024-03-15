@@ -54,7 +54,7 @@ kubectl logs pod/hclds-keycloak-0
 ## Keycloak can be accessed through the following DNS name from within your cluster:
 
 ```console
-    hclds-keycloak.default.svc.cluster.local (port 80)
+hclds-keycloak.default.svc.cluster.local (port 80)
 ```
 
 ## Access via port-forwarding

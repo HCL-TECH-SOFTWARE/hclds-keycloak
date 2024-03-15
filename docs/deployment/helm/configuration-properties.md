@@ -3,6 +3,7 @@
 The following document provides details on available configuration parameters to steer the behavior of the Keycloak deployment. All properties are defined in the included `values.yaml` file and can be overwritten with custom values to fit the needs of your environment.
 
 On a high level, the deployment can be adjusted regarding the following areas via respective Helm parameters:
+
 - Global - images
 - Common - naming, dns
 - Keycloak - ssl, admin, spi, env vars
