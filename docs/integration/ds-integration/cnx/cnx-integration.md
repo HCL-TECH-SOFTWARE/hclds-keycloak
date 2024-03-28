@@ -61,7 +61,11 @@ ADMA5013I: Application WebSphereOIDCRP installed successfully.
 
 The following configuration will allow the OIDC RP TAI to contextualize which requests should be intercepted and how to treat them. In particular, this configuration is thightly connected to the Keycloak realm and client configuration.
 
-The interceptor can be configured in the ISC under **Security** -> **Global Security** -> **Web and SIP security** -> **Trust association** -> **Interceptors**.
+Since we are using IDP clients for authentication disable the com.ibm.ws.security.oauth20.tai.OAuthTAI filter.
+
+As the WebSphere administrator, in the administrative console, go to **Security** -> **Global security** -> **Web and SIP security** -> **Trust association** -> **Interceptors**. Select com.ibm.ws.security.oauth20.tai.OAuthTAI and set the provider_1.filter name to some dummy value to disable intercepting requests. For example provider_1.filter_Dummy.
+
+Add new OIDC Relying Party TAI. As the WebSphere administrator, in the administrative console, go to **Security** -> **Global Security** -> **Web and SIP security** -> **Trust association** -> **Interceptors**.
 
 Click on the **New..** button to create a new interceptor with the **Interceptor class name** `com.ibm.ws.security.oidc.client.RelyingParty`.
 
@@ -73,27 +77,22 @@ Add the following custom properties:
 
 | Name                                  | Value                                                                                   |
 | ------------------------------------- | --------------------------------------------------------------------------------------- |
-| provider_1.identifier                 | keycloak                                                                                     |
+| provider_1.identifier                 | keycloak                                                                                |
 | provider_1.clientId                   | hcl-cnx-oidc-client                                                                     |
 | provider_1.clientSecret               | &lt;CLIENT_SECRET&gt;                                                                   |
-| provider_1.authorizeEndpointUrl       | https://&lt;IDP_HOSTNAME&gt;/auth/realms/hcl/protocol/openid-connect/auth               |
-| provider_1.tokenEndpointUrl           | https://&lt;IDP_HOSTNAME&gt;/auth/realms/hcl/protocol/openid-connect/token              |
-| provider_1.interceptedPathFilter      | /activities/.\*,/blogs/.\*,/dogear/.\*,/files/.\*,/forums/.\*,/metrics/.\*,/metricssc/_,/mobile/.\*,/connections/filesync/.\*,/connections/filediff/.\*,/mobileAdmin/.\*,/storageproxy/.\*,/wikis/.\*,/connections/bookmarklet/.\*,/connections/oauth/.\*,/connections/resources/.\*,/connections/config/.\*,/communities/.\*,/connections/proxy/.\*,/help/.\*,/xcc/.\*,/selfservice/.\*,/news/.\*,/profiles/.\*,/search/.\*,/socialsidebar/.\*,/touchpoint/.\*,/connections/thumbnail/.\*,/connections/opengraph/.\*,/oauth2/.\*,/connections/opensocial/.\*,/push/.\*,/homepage/.\*,/moderation/.\*,/connections/rte/.\*,/connections/webeditors/.\*,/homepage/login/.\*,/profiles/oidc/session                                                                                                                           |
-| provider_1.excludedPathFilter         | /activities/service/downloadExtended/.\*,/survey/.\*,/surveys/.\*,/ibm/console,/ibm/console/.\*,/profiles/dsx/.\*,/communities/dsx/.\*,/dm,/dm/atom/seedlist,/dm/atom/communities/feed,/activities/service/atom2/forms/communityEvent,/communities/recomm/handleEvent,/communities/calendar/handleEvent,/profiles/seedlist/myserver,/activities/service/atom2/forms/communityEvent,/news/web/statusUpdateEE.\*,/dogear/seedlist/myserver,/news/seedlist/myserver,/communities/calendar/seedlist/myserver,/activities/service/downloadExtended/.\*,/survey/.\*,/surveys/.\*,/ibm/console,/ibm/console/.\*,/profiles/dsx/.\*,/communities/dsx/.\*,/dm,/dm/atom/seedlist,/dm/atom/communities/feed,/activities/service/atom2/forms/communityEvent,/communities/recomm/handleEvent,/communities/calendar/handleEvent,/profiles/seedlist/myserver,/activities/service/atom2/forms/communityEvent,/news/web/statusUpdateEE.\*,/dogear/seedlist/myserver,/news/seedlist/myserver,/communities/calendar/seedlist/myserver,/mobile/homepage/SecurityConfiguration,/connections/resources/web/.\*,/connections/resources/ic/.\*,/connections/opensocial/rpc,/xcc/js/.\*,/xcc/templates/.\*,/files/static/.\*,/blogs/static/.\*,/wikis/static/.\*,/communities/calendar/Calendar.xml,/homepage/web/itemSetPersistence.action/repos,/files/wl/lifecycle/files,/wikis/wl/lifecycle/wikis,/forums/lifecycle/communityEvent,/blogs/roller-ui/BlogsWidgetEventHandler.do,/news/widget/communityHandler.do,/connections/opensocial/rest/people/.\*                                                                                                                                |
-| provider_1.issuerIdentifier           | https://&lt;IDP_HOSTNAME&gt;/auth/realms/hcl                                            |
-| provider_1.signatureAlgorithm         | RS256                                                                                   |
-| provider_1.jwkEndpointUrl             | https://&lt;IDP_HOSTNAME&gt;/auth/realms/hcl/protocol/openid-connect/certs              |
-| provider_1.userIdentifier             | email                                                                                   |
-| provider_1.useDefaultIdentifierFirst | false                                                                                   |
-| provider_1.scope                      | openid                                                                                  |
+| provider_1.scope                      | openid profile email                                                                                                                             |
 | provider_1.signVerifyAlias            | hcl-idp-cert                                                                            |
-| provider_1.useJwtFromRequest          | IfPresent                                                                               |
+| provider_1.defaultRealmName           | hcl                                                                                     |
+| provider_1.useRealm                   | WAS_DEFAULT                                                                             |
+| provider_1.userIdentifier             | email                                                                                   |
+| provider_1.useJwtFromRequest          | ifPresent                                                                               |
 | provider_1.createSession              | true                                                                                    |
 | provider_1.verifyIssuerInIat          | true                                                                                    |
 | provider_1.audiences                  | ALL_AUDIENCES                                                                           |
 | provider_1.setLtpaCookie              | true                                                                                    |
-| provider_1.callbackServletContext     | /oidcclient                                                                             |
-| provider_1.mapIdentityToRegistryUser  | true                                                                                    |
+| provider_1.discoveryEndpointUrl       | https://&lt;IDP_HOSTNAME&gt;/auth/realms/&lt;REALM_NAME&gt;/.well-known/openid-configuration               |
+| provider_1.interceptedPathFilter      | /activities/.\*,/blogs/.\*,/dogear/.\*,/files/.\*,/forums/.\*,/metrics/.\*,/metricssc/_,/mobile/.\*,/connections/filesync/.\*,/connections/filediff/.\*,/mobileAdmin/.\*,/storageproxy/.\*,/wikis/.\*,/connections/bookmarklet/.\*,/connections/oauth/.\*,/connections/resources/.\*,/connections/config/.\*,/communities/.\*,/connections/proxy/.\*,/help/.\*,/xcc/.\*,/selfservice/.\*,/news/.\*,/profiles/.\*,/search/.\*,/socialsidebar/.\*,/touchpoint/.\*,/connections/thumbnail/.\*,/connections/opengraph/.\*,/oauth2/.\*,/connections/opensocial/.\*,/push/.\*,/homepage/.\*,/moderation/.\*,/connections/rte/.\*,/connections/webeditors/.\*,/homepage/login/.\*,/profiles/oidc/session                                                                                                                           |
+| provider_1.excludedPathFilter         | /activities/service/downloadExtended/.\*,/survey/.\*,/surveys/.\*,/ibm/console,/ibm/console/.\*,/profiles/dsx/.\*,/communities/dsx/.\*,/dm,/dm/atom/seedlist,/dm/atom/communities/feed,/activities/service/atom2/forms/communityEvent,/communities/recomm/handleEvent,/communities/calendar/handleEvent,/profiles/seedlist/myserver,/activities/service/atom2/forms/communityEvent,/news/web/statusUpdateEE.\*,/dogear/seedlist/myserver,/news/seedlist/myserver,/communities/calendar/seedlist/myserver,/activities/service/downloadExtended/.\*,/survey/.\*,/surveys/.\*,/ibm/console,/ibm/console/.\*,/profiles/dsx/.\*,/communities/dsx/.\*,/dm,/dm/atom/seedlist,/dm/atom/communities/feed,/activities/service/atom2/forms/communityEvent,/communities/recomm/handleEvent,/communities/calendar/handleEvent,/profiles/seedlist/myserver,/activities/service/atom2/forms/communityEvent,/news/web/statusUpdateEE.\*,/dogear/seedlist/myserver,/news/seedlist/myserver,/communities/calendar/seedlist/myserver,/mobile/homepage/SecurityConfiguration,/connections/resources/web/.\*,/connections/resources/ic/.\*,/connections/opensocial/rpc,/xcc/js/.\*,/xcc/templates/.\*,/files/static/.\*,/blogs/static/.\*,/wikis/static/.\*,/communities/calendar/Calendar.xml,/homepage/web/itemSetPersistence.action/repos,/files/wl/lifecycle/files,/wikis/wl/lifecycle/wikis,/forums/lifecycle/communityEvent,/blogs/roller-ui/BlogsWidgetEventHandler.do,/news/widget/communityHandler.do,/connections/opensocial/rest/people/.\*                                                                                                                                |
 
 > **_Note:_**
 >
@@ -105,9 +104,9 @@ Afterwards, hit **Apply** and **OK**. To persist the changes, click the link **S
 
 Some custom properties have to be updated to match the OIDC TAI config and its expected behavior. To do so, go to **Security** -> **Global security** -> **Custom properties**.
 
-First, delete the property `com.ibm.websphere.security.DeferTAItoSSO` if it exists.
+First, delete the property `com.ibm.websphere.security.InvokeTAIbeforeSSO` if it exists.
 
-Change `com.ibm.websphere.security.InvokeTAIbeforeSSO` to replace existing with `com.ibm.ws.security.oidc.client.RelyingParty`
+Change `com.ibm.websphere.security.DeferTAItoSSO` to replace existing with `com.ibm.ws.security.oidc.client.RelyingParty`
 
 Afterwards, add or update following properties:
 
@@ -138,9 +137,6 @@ Then, click on **Retrieve signer information**. This will load the certificate d
 
 Click **OK**, and **save** to the master configuration.
 
-## Adding an external realm
-
-In the ISC, navigate to **Security** -> **federated repositories** –> **configure** -> **Trusted authentication realms – inbound** -> **Add external realm** -> hcl.
 
 ### Restarting the server
 
@@ -148,14 +144,6 @@ In the ISC, navigate to **Security** -> **federated repositories** –> **config
 /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/bin/stopServer.sh server1
 /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/bin/startServer.sh server1
 ```
-
-## Changing security roles for users and groups in CNX applications
-
-- Go to the ISC
-- Navigate to **Applications** -> **Application types** -> **Enterprise Applications** -> **Select app** -> **Security role to user/group mapping**
-- Change from All Authenticated in Application's Realms to All Authenticated in Trusted Realms
-- Then click **OK** and **save** to the master configuration.
-- Follow above step for all apps
 
 ## Updating httpd.conf file for redirection rules
 
